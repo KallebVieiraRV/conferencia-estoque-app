@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>Importação — Conferência de Estoque às Cegas</title>
+  <meta name="theme-color" content="#0e7d66" />
+  <meta name="description" content="Importação do relatório bruto do WMS — uso restrito ao responsável pela contagem." />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="icon" href="./icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>Importação do relatório</h1>
+    <p class="ajuda">Uso restrito a quem administra a contagem — os contadores não usam esta tela. O arquivo é processado aqui mesmo, no navegador; nada é enviado a nenhum servidor além da Planilha Google central.</p>
+
+    <label for="responsavel">Responsável pela importação</label>
+    <input id="responsavel" type="text" placeholder="Seu nome" autocomplete="off" />
+
+    <label for="arquivo">Relatório(s) do WMS (.xls ou .xlsx)</label>
+    <input id="arquivo" type="file" accept=".xls,.xlsx" multiple />
+
+    <div id="resumo" class="resumo" hidden></div>
+    <div id="anomalias" class="anomalias" hidden></div>
+    <div id="aviso-area-existente" class="anomalias" hidden>
+      <p class="aviso">⚠️ Uma ou mais áreas deste arquivo já têm linhas na planilha.</p>
+      <p>Reimportar sem limpar antes vai FUNDIR as linhas novas com as antigas e dobrar a quantidade esperada de cada grupo — contagens corretas passam a parecer divergentes. Limpe a planilha antes (ver documentação de reset) em vez de marcar a opção abaixo, a menos que tenha certeza do que está fazendo.</p>
+      <label>
+        <input type="checkbox" id="campo-forcar-reimportacao" />
+        Sei do risco: as linhas novas serão SOMADAS às existentes (não substituem)
+      </label>
+    </div>
+
+    <button id="btn-importar" type="button" disabled>Importar</button>
+
+    <p id="status" class="status" role="status" aria-live="polite"></p>
+  </main>
+
+  <!-- SheetJS vendorizado (script comum, não módulo — define o global XLSX).
+       Tem que vir ANTES do módulo abaixo, que depende desse global. -->
+  <script src="./js/vendor/xlsx.full.min.js"></script>
+  <script type="module" src="./js/ui/screen-import.js"></script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js').catch((erro) => {
+          console.error('Falha ao registrar o Service Worker:', erro);
+        });
+      });
+    }
+  </script>
+</body>
+</html>

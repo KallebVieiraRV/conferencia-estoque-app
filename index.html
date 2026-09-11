@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>Conferência de Estoque às Cegas</title>
+  <meta name="theme-color" content="#0e7d66" />
+  <meta name="description" content="Contagem de estoque às cegas, com recontagem automática de divergências." />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="icon" href="./icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body>
+  <main class="container">
+    <section id="tela-sessao">
+      <h1>Conferência de Estoque às Cegas</h1>
+      <p class="ajuda">A quantidade esperada nunca aparece aqui — é assim mesmo, é contagem às cegas.</p>
+
+      <label for="nome-contador">Seu nome</label>
+      <input id="nome-contador" type="text" autocomplete="off" />
+
+      <label for="area-selecionada">Sua área</label>
+      <input id="area-selecionada" type="text" placeholder="Ex.: 1-D" autocomplete="off" />
+
+      <button id="btn-comecar" type="button">Começar</button>
+      <p id="status-sessao" class="status" role="status" aria-live="polite"></p>
+    </section>
+
+    <section id="tela-contagem" hidden>
+      <p class="progresso" id="progresso-posicao"></p>
+      <h2 id="titulo-posicao"></h2>
+      <div id="lista-grupos"></div>
+
+      <div id="item-nao-encontrado">
+        <button id="btn-mostrar-item-avulso" type="button" class="botao-secundario">
+          + Item não encontrado nesta posição
+        </button>
+
+        <fieldset id="form-item-avulso" class="cartao-grupo" hidden>
+          <legend>Item não encontrado na lista</legend>
+          <label>Nome do produto
+            <input type="text" id="campo-nome-item-avulso" autocomplete="off" />
+          </label>
+          <label>Quantidade encontrada
+            <input type="number" min="0" step="1" inputmode="numeric" id="campo-quantidade-item-avulso" />
+          </label>
+          <label>Etiquetado
+            <select id="campo-etiquetado-item-avulso">
+              <option value="Sim">Sim</option>
+              <option value="Não">Não</option>
+            </select>
+          </label>
+          <label>Observação (opcional)
+            <input type="text" id="campo-observacao-item-avulso" />
+          </label>
+          <button id="btn-adicionar-item-avulso" type="button">Adicionar</button>
+          <button id="btn-cancelar-item-avulso" type="button" class="botao-secundario">Cancelar</button>
+          <p id="status-item-avulso" class="status" role="status" aria-live="polite"></p>
+        </fieldset>
+
+        <ul id="lista-itens-avulsos"></ul>
+      </div>
+
+      <button id="btn-avancar" type="button">Próxima posição</button>
+      <p id="status-contagem" class="status" role="status" aria-live="polite"></p>
+    </section>
+
+    <section id="tela-recontagem" hidden>
+      <p class="progresso" id="progresso-recontagem"></p>
+      <h2>Recontagem</h2>
+      <p class="ajuda">Só os itens que divergiram — de novo, às cegas.</p>
+      <div id="lista-recontagem"></div>
+      <button id="btn-concluir-recontagem" type="button">Concluir recontagem</button>
+      <p id="status-recontagem" class="status" role="status" aria-live="polite"></p>
+    </section>
+
+    <section id="tela-resultado" hidden>
+      <h2>Contagem enviada</h2>
+      <p id="resultado-resumo"></p>
+    </section>
+  </main>
+
+  <script type="module" src="./js/ui/screen-counting.js"></script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js').catch((erro) => {
+          console.error('Falha ao registrar o Service Worker:', erro);
+        });
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,243 @@
+/* Estilos base do app — mobile-first, pensado pra tela pequena de coletor e
+   digitação com uma mão só (requisito não funcional da spec, seção 8).
+   Ainda não tem estilo de tela específica (isso entra nas Fases 8-12). */
+
+:root {
+  --cor-primaria: #0e7d66;
+  --cor-primaria-escura: #0a5c4c;
+  --cor-texto: #1a1a1a;
+  --cor-texto-suave: #5a5a5a;
+  --cor-fundo: #ffffff;
+  --cor-fundo-suave: #f4f6f5;
+  --cor-borda: #dcdfde;
+  --cor-erro: #b3261e;
+  --cor-sucesso: #0e7d66;
+  --altura-toque-minima: 44px; /* alvo de toque confortável com uma mão */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px; /* nunca menor que 16px — evita zoom automático em inputs no Android/iOS */
+  color: var(--cor-texto);
+  background: var(--cor-fundo-suave);
+  line-height: 1.4;
+  padding-bottom: 3rem; /* nunca deixa o badge-sync fixo (rodapé) cobrir o último botão da tela */
+}
+
+h1, h2, h3 {
+  margin: 0 0 0.5em;
+  line-height: 1.2;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+button, input, select, textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  min-height: var(--altura-toque-minima);
+  padding: 0.6em 1.2em;
+  border: none;
+  border-radius: 8px;
+  background: var(--cor-primaria);
+  color: #fff;
+  cursor: pointer;
+}
+
+button:active {
+  background: var(--cor-primaria-escura);
+}
+
+button:disabled {
+  background: var(--cor-borda);
+  color: var(--cor-texto-suave);
+  cursor: not-allowed;
+}
+
+input, select {
+  min-height: var(--altura-toque-minima);
+  padding: 0.5em 0.75em;
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  background: #fff;
+  width: 100%;
+}
+
+.container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.tela-carregando {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  color: var(--cor-texto-suave);
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin: 1rem 0 0.3rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.ajuda {
+  color: var(--cor-texto-suave);
+  font-size: 0.9rem;
+}
+
+.resumo,
+.anomalias {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid var(--cor-borda);
+}
+
+.anomalias {
+  border-color: #e8b34a;
+  background: #fff8ea;
+}
+
+.anomalias ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.2rem;
+}
+
+.aviso {
+  margin: 0;
+  font-weight: 600;
+}
+
+#btn-importar {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.status {
+  margin-top: 1rem;
+  min-height: 1.2em;
+}
+
+.status.erro {
+  color: var(--cor-erro);
+  font-weight: 600;
+}
+
+.progresso {
+  color: var(--cor-texto-suave);
+  font-size: 0.9rem;
+  margin-bottom: 0.2rem;
+}
+
+#titulo-posicao {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+.cartao-grupo {
+  border: 1px solid var(--cor-borda);
+  border-radius: 10px;
+  background: #fff;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.cartao-grupo legend {
+  font-weight: 700;
+  padding: 0 0.3rem;
+}
+
+.detalhes-grupo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem 1rem;
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+}
+
+.detalhes-grupo dt {
+  color: var(--cor-texto-suave);
+  font-weight: 600;
+}
+
+.detalhes-grupo dd {
+  margin: 0;
+}
+
+#btn-avancar {
+  width: 100%;
+}
+
+.badge-sync {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  width: 100%;
+  border-radius: 0;
+  padding: 0.6rem 1rem;
+  font-size: 0.85rem;
+  text-align: center;
+  background: var(--cor-texto-suave);
+  color: #fff;
+}
+
+.badge-sync-erro {
+  background: var(--cor-erro);
+}
+
+.botao-secundario {
+  background: transparent;
+  color: var(--cor-primaria);
+  border: 1px solid var(--cor-primaria);
+}
+
+.botao-secundario:active {
+  background: var(--cor-fundo-suave);
+}
+
+#item-nao-encontrado {
+  margin-bottom: 1rem;
+}
+
+#item-nao-encontrado #btn-mostrar-item-avulso {
+  width: 100%;
+}
+
+#form-item-avulso #btn-adicionar-item-avulso,
+#form-item-avulso #btn-cancelar-item-avulso {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+#lista-itens-avulsos {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  font-size: 0.9rem;
+  color: var(--cor-texto-suave);
+}
+
+#lista-itens-avulsos li {
+  padding: 0.3rem 0;
+}
