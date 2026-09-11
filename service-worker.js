@@ -7,7 +7,7 @@
 // Bump manual do CACHE_NAME a cada release que mude algum asset estático —
 // o `activate` limpa qualquer cache com nome antigo automaticamente.
 
-const CACHE_NAME = 'conf-estoque-v7';
+const CACHE_NAME = 'conf-estoque-v8';
 
 // Lista viva: cresce nas próximas fases conforme mais telas entrarem.
 const STATIC_ASSETS = [

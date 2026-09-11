@@ -166,6 +166,11 @@ label {
   padding: 0 0.3rem;
 }
 
+.sku-produto {
+  color: var(--cor-texto-suave);
+  font-weight: 500;
+}
+
 .detalhes-grupo {
   display: grid;
   grid-template-columns: 1fr 1fr;

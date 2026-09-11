@@ -231,7 +231,7 @@ function renderizarCartaoDoGrupo(grupo) {
 
   return `
     <fieldset class="cartao-grupo" data-chave="${escaparHtml(chave)}">
-      <legend>${escaparHtml(linhaBase.nomeProduto)}</legend>
+      <legend>${renderizarNomeComSku(linhaBase)}</legend>
       ${renderizarDetalhesDoGrupo(grupo, linhaBase, docsFiscais)}
 
       <label>Quantidade contada
@@ -248,6 +248,12 @@ function renderizarCartaoDoGrupo(grupo) {
       </label>
     </fieldset>
   `;
+}
+
+// SKU junto ao nome do produto no cabeçalho do cartão — pedido explícito do
+// analista, pra bater com o código físico impresso na prateleira/etiqueta.
+function renderizarNomeComSku(linhaBase) {
+  return `<span class="sku-produto">SKU ${escaparHtml(linhaBase.sku)}</span> — ${escaparHtml(linhaBase.nomeProduto)}`;
 }
 
 function renderizarDetalhesDoGrupo(grupo, linhaBase, docsFiscais) {
@@ -460,7 +466,7 @@ function renderizarCartaoDeRecontagem(grupo) {
 
   return `
     <fieldset class="cartao-grupo" data-chave="${escaparHtml(chave)}">
-      <legend>${escaparHtml(linhaBase.nomeProduto)}</legend>
+      <legend>${renderizarNomeComSku(linhaBase)}</legend>
       ${renderizarDetalhesDoGrupo(grupo, linhaBase, docsFiscais)}
 
       <label>Quantidade recontada
